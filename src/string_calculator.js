@@ -1,18 +1,16 @@
 function add(str){
     num = str
-    //str = num
-    if(str === ""){
+    if(num === ""){
         return 0;
     }
-    num = str.split(",")
+    str = num.split(",")
     var sum = 0;
-   // var arrayLength = num.length;
-    for(var i = 0; i < num.length; i++){
-        sum += parseInt(num[i])
+    for(var i = 0; i < str.length; i++){
+        sum += parseInt(str[i])
     }
     return sum
 
     
 }
-console.log(add("1,1"))
+console.log(add("1,2,3,4"))
 module.exports = {add}
