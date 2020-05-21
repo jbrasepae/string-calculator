@@ -3,7 +3,8 @@ function add(str) {
     if (str === "") {
         return 0;
     }
-    num = str.split(",")
+    num = str.split("\n|,")
+    //var splitInput = numbers.Split(new[] {",", "\n"}, StringSplitOptions.None);
     var sum = 0;
     for (var i = 0; i < num.length; i++) {
         sum += parseInt(num[i])
@@ -29,5 +30,5 @@ function add(str) {
 //     return /[\n,]/
 
 
-console.log(add("1,2,3,4"))
+console.log(add("1\n2,3"))
 module.exports = {add}
