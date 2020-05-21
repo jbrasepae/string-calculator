@@ -1,16 +1,33 @@
-function add(str){
+function add(str) {
     num = str
-    if(num === ""){
+    if (str === "") {
         return 0;
     }
-    str = num.split(",")
+    num = str.split(",")
     var sum = 0;
-    for(var i = 0; i < str.length; i++){
-        sum += parseInt(str[i])
+    for (var i = 0; i < num.length; i++) {
+        sum += parseInt(num[i])
     }
     return sum
 
-    
 }
+// function getDelimiter(input) {
+//     const delimiters = []
+//     const multipleDelimiterRegexp = /(?:^\/\/)?\[([^\[\]]+)\]\n?/g
+//     let matches = multipleDelimiterRegexp.exec(input)
+//     while (matches !== null) {
+//         delimiters.push(matches[1])
+//         matches = multipleDelimiterRegexp.exec(input)
+//     }
+//     if (delimiters.length > 0) {
+//         return new RegExp('[' + delimiters.join('') + ']')
+//     }
+//     matches = /^\/\/(.*)\n/.exec(input)
+//     if (matches && matches[1]) {
+//         return matches[1]
+//     }
+//     return /[\n,]/
+
+
 console.log(add("1,2,3,4"))
 module.exports = {add}
