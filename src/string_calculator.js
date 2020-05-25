@@ -1,34 +1,60 @@
-function add(str) {
-    num = str
-    if (str === "") {
-        return 0;
+const stringCalculator = (function(){
+    function add(str){
+      if (str === ""){
+        return 0
+      }
+      const delimiter = getDelimiter(str)
+      const formattedInput = formatInput(str)
+      return calculateSum(getNumbers(formattedInput, delimiter)) 
     }
-    num = str.split("\n|,")
-    //var splitInput = numbers.Split(new[] {",", "\n"}, StringSplitOptions.None);
-    var sum = 0;
-    for (var i = 0; i < num.length; i++) {
-        sum += parseInt(num[i])
+    function formatInput(str){
+      const delimiterRegex = /^(\/\/.*\n)/
+      const matches = delimiterRegex.exec(str)
+      if(matches && matches.length > 0){
+        return str.replace(delimiterRegex,"")
+      }
+      return str
     }
-    return sum
-
-}
-// function getDelimiter(input) {
-//     const delimiters = []
-//     const multipleDelimiterRegexp = /(?:^\/\/)?\[([^\[\]]+)\]\n?/g
-//     let matches = multipleDelimiterRegexp.exec(input)
-//     while (matches !== null) {
-//         delimiters.push(matches[1])
-//         matches = multipleDelimiterRegexp.exec(input)
-//     }
-//     if (delimiters.length > 0) {
-//         return new RegExp('[' + delimiters.join('') + ']')
-//     }
-//     matches = /^\/\/(.*)\n/.exec(input)
-//     if (matches && matches[1]) {
-//         return matches[1]
-//     }
-//     return /[\n,]/
-
-
-console.log(add("1\n2,3"))
-module.exports = {add}
+    function getDelimiter(str) {
+      const delimiters = []
+      const multipleDelimiterRegexp = /(?:^\/\/)?\[([^\[\]]+)\]\n?/g
+      let matches = multipleDelimiterRegexp.exec(str)
+      for (let i = 0; matches !== null; i++) {
+        delimiters.push(matches[1])
+       matches = multipleDelimiterRegexp.exec(str)  
+      }
+      if(delimiters.length > 0){
+        return new RegExp("["+delimiters.join("")+"]")
+      }
+      matches = (/^\/\/(.*?)\n/g).exec(str)
+      if(matches && matches[1]){
+        return matches[1]
+      }
+      return /[\n,]/
+    }
+    function getNumbers(string, delimiter){
+      return string.split(delimiter)
+        .filter(n => n !== "")
+        .map(n => parseInt(n))
+    }
+    function calculateSum(numbers){
+      const negatives = []
+      const finalSum = numbers.reduce((sum, n) =>{
+        if(n >= 1000){
+          return 0
+        }
+        if(n < 0){
+          negatives.push(n)
+          return 0
+        }
+        return sum + n
+      },0)
+      if(negatives.length > 0){
+        throw Error("negatives not allowed -1,-2")
+      }
+      return finalSum
+    }
+    return {add}
+}())
+console.log(stringCalculator.add(""))
+module.exports = {stringCalculator}   
