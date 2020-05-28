@@ -22,7 +22,7 @@ describe('add', function(){
     it('should allow delimiter and newlines',function(){
         expect(add("//4\n142")).toBe(3)
     })
-    it('should check if string passed in is invalid has negative values',function(){
+    it('should check if string has negative values',function(){
         expect(function(){add("-1,-2,3,4")}).toThrow(new Error("negatives not allowed -1,-2"))
     })
     it('should ignore numbers that are greater than 1000',function(){
