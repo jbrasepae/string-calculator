@@ -1,7 +1,7 @@
 const {add} = require("../src/string_calculator")
 
 describe('add', function(){
-    it('should return 0 for an empty string',function(){
+    it('should return 0 for an empty string passed in is invalid',function(){
         expect(add("")).toBe(0)
     })
     it('should add a single number',function(){
@@ -22,7 +22,7 @@ describe('add', function(){
     it('should allow delimiter and newlines',function(){
         expect(add("//4\n142")).toBe(3)
     })
-    it('should check if string has negative values',function(){
+    it('should check if string passed in is invalid has negative values',function(){
         expect(function(){add("-1,-2,3,4")}).toThrow(new Error("negatives not allowed -1,-2"))
     })
     it('should ignore numbers that are greater than 1000',function(){
@@ -43,15 +43,13 @@ describe('add', function(){
     it('should check if it can support delimiters of any length',function(){
         expect(add("//[abc][777][:(]\n1abc27773:(1")).toBe(7)
     })
-    it('should check if inputs valid',function(){
+    it('should check if string passed in is invalid',function(){
         expect(function(){add("//;\n1000;1;2;")}).toThrow(new Error("invalid input"))
     })
-    // it('should check if inputs valid',function(){
-    //     expect(function(){add("//;\n1000;1;2;")}).toThrow(new Error("invalid input"))
-    // })
-    // it('should check if inputs valid',function(){
-    //     expect(function(){add("//;\n1000;1;2;")}).toThrow(new Error("invalid input"))
-    //
+    it('should check if string passed in is invalid',function(){
+        expect(function(){add("   //;\n1000,1;2")}).toThrow(new Error("invalid input"))
+    })
+    it('should check if string passed in is invalid',function(){
+        expect(function(){add("1,2,3//;\n1000,1;2")}).toThrow(new Error("invalid input"))
+    })
  })
-  
-

@@ -2,16 +2,12 @@ function add(str){
     if (str === ""){
       return 0
     }
-    if (str[0] == "/" && str[1] == "/" && /.+\n/.test(str) == false) {
-        throw new Error("invalid input");
-      }
-      if (
-        /[0-9]$/g.test(str) == false &&
-        str.length > 0 &&
-        /\s/g.test(str) == true
-      ) {
-        throw new Error("invalid input");
-      }
+    if (str.match(/.+(?=\/\/)/g) != null && /\n/.test(str) == true){
+      throw new Error("invalid input");
+    }
+    if(str.match(/\d$/g) == null && str.length > 0){
+      throw new Error("invalid input");
+    }
     const delimiter = getDelimiter(str)
     const formattedInput = formatInput(str)
     return calculateSum(getNumbers(formattedInput, delimiter)) 
@@ -64,5 +60,5 @@ function add(str){
     return finalSum
   }
 
-console.log(add("1,2,3//;\n1000,1;2"))
+console.log(add("//[(-_-')][%]\n1(-_-')2%3"))
 module.exports = {add}
